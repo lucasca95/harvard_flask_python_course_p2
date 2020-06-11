@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- Own CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my_css.css') }}">
+
+    <!-- Handlebars -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <!-- Message template -->
+    <script id='message_template' type="text/x-handlebars-template">
+        <li>
+            {% raw -%}
+                <p>{{user_alias}}: {{message}}</p>
+            {%- endraw %}
+        </li>
+    </script>
+
+    <!-- JS SocketIO -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <!-- Own JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/user_alias.js') }}"></script>
+
+    <title>Project 2 - LucasAgustínCamino</title>
+</head>

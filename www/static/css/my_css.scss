@@ -1,0 +1,117 @@
+    $color_1: #101010;
+    $color_2: #212121;
+    $color_3: #303030;
+    $color_4: #424242;
+    $color_5: rgba(1, 0, 20, 0.200);
+    $color_text_1: white;
+
+    $body_backgroundcolor: $color_1;
+    $body_color: $color_text_1;
+    $footer_backgroundcolor: $color_5;
+    $footer_color: $color_text_1;
+
+    %resaltar{
+        background-color: red;
+    }
+
+body{
+    background-color: $body_backgroundcolor;
+    color: $body_color;
+    font-family: 'Manrope', sans-serif;
+    overflow-x: scroll;
+    
+    #chat_zone{
+        border-style: solid;
+        border-radius: 10px;
+        border-color: $color_3;
+        margin: 0;
+        padding: 0;
+        
+        ul{
+            padding: 0;
+            overflow-y: scroll;
+            li{
+                list-style: none;
+
+            }
+        }
+    }
+
+    #message_zone{
+        // @extend %resaltar;
+        border-style: solid;
+        border-radius: 10px;
+        border-color: $color_3;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        margin-top: 5rem;
+        padding: 2rem;
+        min-width: 500px;
+        text-align: center;
+
+        textarea{
+            // @extend %resaltar;
+            padding: 10px;
+            width: 100%;
+            height: 100px;
+        }
+    }
+
+    #select_alias{
+        // @extend %resaltar;
+        background-color: $color_4;
+        border-radius: 25%;
+        position: fixed;
+        left: 20%;
+        right: 20%;
+        top: 20%;
+        bottom: 20%;
+        padding-top: 7%;
+        text-align: center;
+        
+        #btn_alias{
+            margin-top: 5%;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-top: 1.5%;
+            padding-bottom: 1.5%;
+            text-align: center;
+            background-color: $color_2;
+            color: $color_text_1;
+        }
+        #btn_alias:hover{
+            background-color: $color_4;
+        }
+        input{
+            margin-top: 5%;
+            text-align: center;
+        }
+    }
+
+    .my-nav{
+        background-color: $color_2;
+        color: $color_text_1;
+        padding: 30px;
+        position: fixed;
+        top: 0;
+        bottom: 2rem;
+        overflow-y: scroll;
+        ul{
+            // @extend %resaltar;
+            padding-left: 1rem;
+            li{
+                list-style: none;
+            }
+        }
+    }
+}
+
+footer{
+    background-color: $footer_backgroundcolor;
+    position: fixed;
+    bottom: 0;
+    padding-left: 35%;
+    padding-top: 0.1rem;
+    height: 2rem;
+    width: 100%;
+}

@@ -1,1 +1,3 @@
-# harvard_flask_python_course_p2
+# Project 2
+
+Web Programming with Python and JavaScript

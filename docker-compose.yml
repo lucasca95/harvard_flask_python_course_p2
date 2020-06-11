@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+ web:
+  build: .
+  restart: always
+  container_name: web_python
+  ports:
+   - "80:3333"
+  volumes:
+   - "./www/:/www/"
