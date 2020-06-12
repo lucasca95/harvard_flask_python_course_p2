@@ -1,77 +1,129 @@
+body #page #left-pannel #profile-area #profile-img, body #page #left-pannel #rooms-area, body #page #right-pannel #chat-area, body #page #right-pannel #message-area #new_message, body #page #right-pannel #message-area #send {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: medium;
+  border-color: whitesmoke; }
+
 body {
   background-color: #101010;
-  color: white;
-  font-family: 'Manrope', sans-serif;
-  overflow-x: scroll; }
-  body #chat_zone {
-    border-style: solid;
-    border-radius: 10px;
-    border-color: #303030;
-    margin: 0;
-    padding: 0; }
-    body #chat_zone ul {
-      padding: 0;
-      overflow-y: scroll; }
-      body #chat_zone ul li {
-        list-style: none; }
-  body #message_zone {
-    border-style: solid;
-    border-radius: 10px;
-    border-color: #303030;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-top: 5rem;
-    padding: 2rem;
-    min-width: 500px;
-    text-align: center; }
-    body #message_zone textarea {
-      padding: 10px;
-      width: 100%;
-      height: 100px; }
-  body #select_alias {
-    background-color: #424242;
-    border-radius: 25%;
+  color: white; }
+  body #page {
     position: fixed;
-    left: 20%;
-    right: 20%;
-    top: 20%;
-    bottom: 20%;
-    padding-top: 7%;
-    text-align: center; }
-    body #select_alias #btn_alias {
-      margin-top: 5%;
-      padding-left: 5%;
-      padding-right: 5%;
-      padding-top: 1.5%;
-      padding-bottom: 1.5%;
-      text-align: center;
-      background-color: #212121;
-      color: white; }
-    body #select_alias #btn_alias:hover {
-      background-color: #424242; }
-    body #select_alias input {
-      margin-top: 5%;
-      text-align: center; }
-  body .my-nav {
-    background-color: #212121;
-    color: white;
-    padding: 30px;
-    position: fixed;
-    top: 0;
-    bottom: 2rem;
-    overflow-y: scroll; }
-    body .my-nav ul {
-      padding-left: 1rem; }
-      body .my-nav ul li {
-        list-style: none; }
+    height: 100%;
+    left: 1%;
+    right: 1%;
+    min-width: 750px;
+    min-height: 400px; }
+    body #page #left-pannel {
+      position: absolute;
+      left: 1%;
+      top: 0;
+      bottom: 4%;
+      width: 25%; }
+      body #page #left-pannel #profile-area {
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        top: 1%;
+        height: 53%; }
+        body #page #left-pannel #profile-area #profile-img {
+          background-color: #303030;
+          position: absolute;
+          text-align: center;
+          top: 16%;
+          left: 16%;
+          right: 16%;
+          height: 42%;
+          padding-top: 22%;
+          border-radius: 30%; }
+        body #page #left-pannel #profile-area #profile-alias {
+          position: absolute;
+          text-align: center;
+          bottom: 20%;
+          left: 16%;
+          right: 16%;
+          max-height: 3rem;
+          overflow-y: scroll; }
+        body #page #left-pannel #profile-area #profile-exit {
+          position: absolute;
+          bottom: 10%;
+          left: 36.5%; }
+      body #page #left-pannel #rooms-area {
+        background-color: #303030;
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        bottom: 1%;
+        height: 42%; }
+    body #page #right-pannel {
+      position: absolute;
+      right: 1%;
+      top: 0;
+      bottom: 4%;
+      width: 72%; }
+      body #page #right-pannel #title-area {
+        position: absolute;
+        left: 25%;
+        right: 25%;
+        top: 2.5%;
+        text-align: center;
+        max-height: 12%;
+        overflow-y: hidden;
+        overflow-x: hidden; }
+        body #page #right-pannel #title-area #title {
+          font-size: 150%; }
+      body #page #right-pannel #chat-area {
+        background-color: #424242;
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        top: 15%;
+        height: 50%;
+        padding-top: 1%;
+        overflow-y: scroll; }
+        body #page #right-pannel #chat-area #messages {
+          padding-left: 3%;
+          padding-top: 1%; }
+          body #page #right-pannel #chat-area #messages .message {
+            list-style: none;
+            padding-bottom: 1%;
+            max-width: 150%; }
+      body #page #right-pannel #message-area {
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        bottom: 5%;
+        height: 22%; }
+        body #page #right-pannel #message-area #new_message {
+          background-color: #cecece;
+          color: black;
+          resize: none;
+          position: absolute;
+          top: 5%;
+          right: 18%;
+          width: 80%;
+          height: 90%;
+          padding: 1.5%; }
+        body #page #right-pannel #message-area #send {
+          background-color: #830101;
+          position: absolute;
+          color: white;
+          right: 1%;
+          top: 5%;
+          bottom: 5%;
+          width: 16%; }
+        body #page #right-pannel #message-area #send:hover {
+          background-color: #dd0404;
+          font-size: 200%; }
 
 footer {
-  background-color: rgba(1, 0, 20, 0.2);
+  background-color: rgba(1, 0, 20, 0.329);
   position: fixed;
+  overflow-y: scroll;
   bottom: 0;
-  padding-left: 35%;
-  padding-top: 0.1rem;
-  height: 2rem;
-  width: 100%; }
+  width: 100%;
+  height: 4.5%;
+  text-align: center;
+  font-size: 100%; }
 
 /*# sourceMappingURL=my_css.css.map */

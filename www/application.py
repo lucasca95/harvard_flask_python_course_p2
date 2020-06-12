@@ -29,7 +29,7 @@ channels_names = [
 ##############################################################
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('main.html', actual_channel='general', channels_names=channels_names, channels_messages=channels_messages[0])
+    return render_template('index.html', actual_channel='general', channels_names=channels_names, channels_messages=channels_messages[0])
 
 
 @app.route("/ajax/channel/", methods=["POST"])

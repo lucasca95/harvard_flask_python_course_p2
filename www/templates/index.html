@@ -10,20 +10,113 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/my_css.css') }}">
 
     <!-- Handlebars -->
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script> -->
     <!-- Message template -->
-    <script id='message_template' type="text/x-handlebars-template">
+    <!-- <script id='message_template' type="text/x-handlebars-template">
         <li>
             {% raw -%}
                 <p>{{user_alias}}: {{message}}</p>
             {%- endraw %}
         </li>
-    </script>
+    </script> -->
 
     <!-- JS SocketIO -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script> -->
     <!-- Own JS -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/user_alias.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/user_alias.js') }}"></script> -->
 
     <title>Project 2 - LucasAgustínCamino</title>
 </head>
+
+<body>
+    <div id='page'>
+        <div id='left-pannel' class="container-fluid">
+            <!-- Left Pannel -->
+            <div id="profile-area">
+                <!-- Profile Area -->
+                <div id="profile-img">
+                    ".png"
+                </div>
+                <p id="profile-alias">
+                    "My Alias"
+                </p>
+                <button id="profile-exit">
+                    EXIT
+                </button>
+            </div>
+            <div id="rooms-area">
+                Rooms Area
+            </div>
+        </div>
+        <div id='right-pannel' class="container-fluid">
+            <!-- Right Pannel -->
+            <div id="title-area">
+                <h1 id="title">Welcome to "ChatApp" !</h1>
+            </div>
+            <div id="chat-area">
+                <!-- Chat Area -->
+                <ul id="messages">
+                    <li class="message">
+                        User1: hola q onda
+                    </li>
+                    <li class="message">
+                        User3: buenas
+                    </li>
+                    <li class="message">
+                        User47: eeeeeeeeeeeeehhhhh  holaaaaaaaaaaa
+                    </li>
+                    <li class="message">
+                        User1: para emoshion
+                    </li>
+                    <li class="message">
+                        User3: ja ja
+                    </li>
+                    <li class="message">
+                        UserX: ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * 
+                        ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** *
+                         ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** *
+                          ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * 
+                          ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** 
+                          * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * 
+                    </li>
+                    <li class="message">
+                        UserX: ********************** ******* ********************
+                    </li>
+                    <li class="message">
+                        UserX: ********************** ******* ********************
+                    </li>
+                    <li class="message">
+                        UserX: ********************** ******* ********************
+                    </li>
+                    <li class="message">
+                        UserX: ********************** ******* ********************
+                    </li>
+                    <li class="message">
+                        UserX: ********************** ******* ********************
+                    </li>
+                    <li class="message">
+                        UserX: ********************** ******* ********************
+                    </li>
+                    <li class="message">
+                        UserX: ********************** ******* ********************
+                    </li>
+                    <li class="message">
+                        UserX: ********************** ******* ********************
+                    </li>
+                    <li class="message">
+                        UserX: ********************** ******* ********************
+                    </li>
+                    
+                </ul>
+            </div>
+            <div id="message-area">
+                <!-- Chat Area -->
+                <textarea name="new_message" id="new_message" placeholder="Type here..."></textarea>
+                <button id="send">Send</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        Lucas Agustín Camino - lucascamino95@gmail.com
+    </footer>
+</body>

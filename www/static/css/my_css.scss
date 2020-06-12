@@ -1,117 +1,186 @@
-    $color_1: #101010;
-    $color_2: #212121;
-    $color_3: #303030;
-    $color_4: #424242;
-    $color_5: rgba(1, 0, 20, 0.200);
-    $color_text_1: white;
+$color_1: #101010;
+$color_2: #212121;
+$color_3: #303030;
+$color_4: #424242;
 
-    $body_backgroundcolor: $color_1;
-    $body_color: $color_text_1;
-    $footer_backgroundcolor: $color_5;
-    $footer_color: $color_text_1;
+$color_text_1: white;
+$color_footer: rgba(1, 0, 20, 0.329);
 
-    %resaltar{
-        background-color: red;
-    }
+
+%nice_borders{
+    border-radius: 5px;
+    border-style: solid;
+    border-width: medium;
+    border-color: whitesmoke;
+}
 
 body{
-    background-color: $body_backgroundcolor;
-    color: $body_color;
-    font-family: 'Manrope', sans-serif;
-    overflow-x: scroll;
-    
-    #chat_zone{
-        border-style: solid;
-        border-radius: 10px;
-        border-color: $color_3;
-        margin: 0;
-        padding: 0;
-        
-        ul{
-            padding: 0;
-            overflow-y: scroll;
-            li{
-                list-style: none;
+    background-color: $color_1;
+    color: $color_text_1;
 
+    #page{
+        // background-color: blueviolet;
+        position: fixed;
+        height: 100%;
+        left: 1%;
+        right: 1%;
+        min-width: 750px;
+        min-height: 400px;
+
+        #left-pannel{
+            // background-color: rgb(129, 25, 25);
+            position: absolute;
+            left: 1%;
+            top: 0;
+            bottom: 4%;
+            width: 25%;
+            
+            #profile-area{
+                // background-color: rgb(17, 134, 79);
+                position: absolute;
+                left: 5%;
+                right: 5%;
+                top: 1%;
+                height: 53%;
+
+                #profile-img{
+                    @extend %nice_borders;
+                    background-color: $color_3;
+                    position: absolute;
+                    text-align: center;
+                    top: 16%;
+                    left: 16%;
+                    right: 16%;
+                    height: 42%;
+                    padding-top: 22%;
+                    border-radius: 30%;
+                }
+
+                #profile-alias{
+                    // background-color: rgb(206, 0, 0);
+                    position: absolute;
+                    text-align: center;
+                    bottom: 20%;
+                    left: 16%;
+                    right: 16%;
+                    max-height: 3rem;
+                    overflow-y: scroll;
+                }
+
+                #profile-exit{
+                    // background-color: rgb(62, 0, 104);
+                    // color: yellow;
+                    position: absolute;
+                    bottom: 10%;
+                    left: 36.5%;
+                    
+                }
+            }
+        
+            #rooms-area{
+                @extend %nice_borders;
+                background-color: $color_3;
+                position: absolute;
+                left: 5%;
+                right: 5%;
+                bottom: 1%;
+                height: 42%;
             }
         }
-    }
 
-    #message_zone{
-        // @extend %resaltar;
-        border-style: solid;
-        border-radius: 10px;
-        border-color: $color_3;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        margin-top: 5rem;
-        padding: 2rem;
-        min-width: 500px;
-        text-align: center;
+        #right-pannel{
+            // background-color: rgb(31, 4, 4);
+            position: absolute;
+            right: 1%;
+            top: 0;
+            bottom: 4%;
+            width: 72%;
 
-        textarea{
-            // @extend %resaltar;
-            padding: 10px;
-            width: 100%;
-            height: 100px;
-        }
-    }
+            #title-area{
+                // background-color: rgb(17, 134, 79);
+                position: absolute;
+                left: 25%;
+                right: 25%;
+                top: 2.5%;
+                text-align: center;
+                max-height: 12%;
+                overflow-y: hidden;
+                overflow-x: hidden;
+                
+                #title{
+                    font-size: 150%;
+                }
+            }
 
-    #select_alias{
-        // @extend %resaltar;
-        background-color: $color_4;
-        border-radius: 25%;
-        position: fixed;
-        left: 20%;
-        right: 20%;
-        top: 20%;
-        bottom: 20%;
-        padding-top: 7%;
-        text-align: center;
-        
-        #btn_alias{
-            margin-top: 5%;
-            padding-left: 5%;
-            padding-right: 5%;
-            padding-top: 1.5%;
-            padding-bottom: 1.5%;
-            text-align: center;
-            background-color: $color_2;
-            color: $color_text_1;
-        }
-        #btn_alias:hover{
-            background-color: $color_4;
-        }
-        input{
-            margin-top: 5%;
-            text-align: center;
-        }
-    }
+            #chat-area{
+                @extend %nice_borders;
+                background-color: $color_4;
+                position: absolute;
+                left: 5%;
+                right: 5%;
+                top: 15%;
+                height: 50%;
+                padding-top: 1%;
+                overflow-y: scroll;
 
-    .my-nav{
-        background-color: $color_2;
-        color: $color_text_1;
-        padding: 30px;
-        position: fixed;
-        top: 0;
-        bottom: 2rem;
-        overflow-y: scroll;
-        ul{
-            // @extend %resaltar;
-            padding-left: 1rem;
-            li{
-                list-style: none;
+                #messages{
+                    padding-left: 3%;
+                    padding-top: 1%;
+                    .message{
+                        list-style: none;
+                        padding-bottom: 1%;
+                        max-width: 150%;
+                    }
+                }
+            }
+            
+            #message-area{
+                // background-color: $color_3;
+
+                position: absolute;
+                left: 5%;
+                right: 5%;
+                bottom: 5%;
+                height: 22%;
+
+                #new_message{
+                    @extend %nice_borders;
+                    background-color: rgb(206, 206, 206);
+                    color: black;
+                    resize: none;
+                    position: absolute;
+                    top: 5%;
+                    right: 18%;
+                    width: 80%;
+                    height: 90%;
+                    padding: 1.5%;
+                }
+                #send{
+                    @extend %nice_borders;
+                    background-color: rgb(131, 1, 1);
+                    position: absolute;
+                    color: white;
+                    right: 1%;
+                    top: 5%;
+                    bottom: 5%;
+                    width: 16%;
+                }
+                #send:hover{
+                    background-color: rgb(221, 4, 4);
+                    font-size: 200%;
+                }
             }
         }
     }
 }
 
 footer{
-    background-color: $footer_backgroundcolor;
+    background-color: $color_footer;
     position: fixed;
+    overflow-y: scroll;
     bottom: 0;
-    padding-left: 35%;
-    padding-top: 0.1rem;
-    height: 2rem;
     width: 100%;
+    height: 4.5%;
+    text-align: center;
+    font-size: 100%;
 }
