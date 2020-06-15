@@ -2,10 +2,10 @@
 // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port); 
 
 // For Heroku
-var socket = io.connect('//chatapp-0.herokuapp.com/socket.io/?EIO=4&transport=websocket'); 
+// var socket = io.connect('//chatapp-0.herokuapp.com/socket.io/?EIO=4&transport=websocket'); 
+var socker = io();
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log(location.port);
     const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
     const room_template = Handlebars.compile(document.querySelector('#room_template').innerHTML);
 
