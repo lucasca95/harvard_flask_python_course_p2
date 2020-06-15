@@ -1,6 +1,7 @@
 var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port); 
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log(location.protocol + '//' + document.domain + ':' + location.port);
     const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
     const room_template = Handlebars.compile(document.querySelector('#room_template').innerHTML);
 
