@@ -1,6 +1,6 @@
 import sys
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, url_for, redirect
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
@@ -58,7 +58,7 @@ def index():
 def clean():
     for r_m in room_messages:
         r_m.clear()
-    return 'Messages cleaned'
+    return redirect(url_for('index'))
 
 @app.route('/ajax/chats/', methods=['POST'])
 def chats():
