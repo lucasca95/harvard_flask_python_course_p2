@@ -51,8 +51,8 @@ room_names = [
 ##############################################################
 @app.route('/', methods=['GET'])
 def index():
-    return 'Funcionando'
-    # return render_template('index.html')
+    # return 'Funcionando'
+    return render_template('index.html')
 
 @app.route('/clean/', methods=['GET'])
 def clean():
