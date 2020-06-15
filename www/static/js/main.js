@@ -192,8 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
         request.send(data);  
     };
     //#endregion
-});
 
+});
 
 formatString = (s) => {
     s = s.toLowerCase().replace(/[\s$!@#~`%^&+=|(){}[<>\-\]\/\*\\]/ig, "").trim().slice(0,15);
