@@ -1,2 +1,5 @@
 Flask
 Flask-SocketIO
+
+# Para hacer deploy en heroku
+gunicorn

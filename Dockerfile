@@ -17,5 +17,4 @@ ENV FLASK_DEBUG 1
 # Nombre del archivo ejecutable Flask
 ENV FLASK_APP application.py
 
-
 ENTRYPOINT [ "python", "-m", "flask", "run", "--host=0.0.0.0", "--port=3333" ]
