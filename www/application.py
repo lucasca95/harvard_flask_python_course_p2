@@ -9,120 +9,132 @@ socketio = SocketIO(app)
 
 
 ##############################################################
-# Users
-users = []
+chat_limit = 20
+mydebug = 1
 
 ##############################################################
-# Channels
-channels_messages = [
+# Users
+users = ['pedro', 'marta']
+
+##############################################################
+# Rooms
+room_messages = [
     [
-        
+        {
+            'alias': 'random',
+            'message': 'Hola!'
+        },
+        {
+            'alias': 'random',
+            'message': 'Hay alguien?'
+        }
+    ],
+    [
+        {
+            'alias': 'martina',
+            'message': ':)'
+        },
+        {
+            'alias': 'javier',
+            'message': 'ola!'
+        }
     ]
 ]
-channels_names = [
-    'general'
+room_names = [
+    'general',
+    'facultad'
 ]
 
     # print(f'\n\n \n', file=sys.stderr)
 
 ##############################################################
 ##############################################################
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html', actual_channel='general', channels_names=channels_names, channels_messages=channels_messages[0])
+    return render_template('index.html')
 
+@app.route('/clean/', methods=['GET'])
+def clean():
+    for r_m in room_messages:
+        r_m.clear()
+    return 'Messages cleaned'
 
-@app.route("/ajax/channel/", methods=["POST"])
-def channel():
-    selected_channel = request.form.get('selected_channel')
-    print(f'\n\n Selected channel: {selected_channel}\n', file=sys.stderr)
+@app.route('/ajax/chats/', methods=['POST'])
+def chats():
+    room = request.form.get('room')
+    return jsonify({'messages': room_messages[room_names.index(room)], 'rooms': room_names})
 
+##############################################################
+##############################################################
+##############################################################
 # User control
 @app.route("/login/", methods=["POST"])
 def login():
-    if request.method == "POST":
-        # Recuperamos el alias que el usuario quiere tener
-        user_alias = request.form.get('user_alias')
-        # Estandarizamos el alias
-        user_alias = format_user_alias(user_alias)
+    alias = request.form.get('alias')
+    if alias_is_available(alias):
+        add_alias(alias)
+        return jsonify({'alias_ok': True})
 
-        if user_alias_is_available(user_alias):
-            add_user_alias(user_alias)
-            return jsonify({'alias_ok': True})
-        return jsonify({'alias_ok': False})
-    return False
+    return jsonify({'alias_ok': False})
 
 @app.route("/logout/", methods=['POST'])
 def logout():
-    user_alias = request.form.get('user_alias')
-    # Estandarizamos el alias
-    user_alias = format_user_alias(user_alias)
+    alias = request.form.get('alias')
+    delete_alias(alias)
+    return jsonify(True)
 
-    users.remove(user_alias)
-    return jsonify({'status': True})
+@app.route("/users/", methods=['GET'])
+def users_list():
+    return jsonify(users)
 
-
+##############################################################
+##############################################################
+##############################################################
 # SocketIO methods
 @socketio.on('message_sent')
 def message_sent(data):
-    print(f'\n\n Se recibe: {data} \n', file=sys.stderr)
-
-    channels_names.index(data['channel'])
-    print(f'\n\n Se encontró canal {data["channel"]} en índice {channels_names.index(data["channel"])} \n', file=sys.stderr)
+    aux_alias = data['alias']
+    aux_message = data['message']
+    aux_room = data['room']
+    if (mydebug):
+        print(f'\n\nAlias: {aux_alias}\nMessage: {aux_message}\nRoom: {aux_room}\n', file=sys.stderr)
     
-    # guardamos el mensaje entrante en el canal que corresponda
-    channels_messages[channels_names.index(data["channel"])].append({data['user_alias']: data['message']})
+    # save new message in the correct room
+    room_messages[room_names.index(aux_room)].append({
+        'alias': aux_alias,
+        'message': aux_message
+    })
+    
+    # save only the last "chat_limit" messages
+    if (len(room_messages[room_names.index(aux_room)]) > chat_limit):
+        room_messages[room_names.index(aux_room)] = room_messages[room_names.index(aux_room)][1:chat_limit+1] 
 
-    print(f'\n\n Ahora el canal general tiene: {channels_messages[0]} \n', file=sys.stderr)
+    if (not mydebug):
+        print(f'\n\nCantMessages: {len(room_messages[room_names.index(aux_room)])}\n{room_messages[room_names.index(aux_room)]}\n', file=sys.stderr)
+    if (not mydebug):
+        print(f'\n\n Ahora la sala {aux_room} tiene:\n', file=sys.stderr)
+        for m in room_messages[0]:
+            for k,v in m.items():
+                print(f'\n--{k}: {v}', file=sys.stderr)
 
-    emit('message_received', data, broadcast=True)
+    emit('message_received', {'alias':aux_alias, 'message':aux_message, 'room': aux_room}, broadcast=True)
 
 ##############################################################
 ##############################################################
 ##############################################################
 
-def user_alias_is_available(alias):
-    if (alias != None):
-        alias.strip()
-        if alias != '':
-            if alias in users:
-                return False
-            return True
-    return False
+def alias_is_available(alias):
+    if alias in users:
+        return False
+    return True
         
-def add_user_alias(alias):
+def add_alias(alias):
+    print(f'\nAdding alias "{alias}"\n', file=sys.stderr)
     users.append(alias)
 
-def format_user_alias(alias):
-    return alias.lower()
+def delete_alias(alias):
+    print(f'\nDeleting alias "{alias}"\n', file=sys.stderr)
+    users.remove(alias)
 
-@app.route("/register/", methods=["GET", "POST"])
-def register():
-    print(f'\n\nIngresamos a "register" por {request.method}\n', file=sys.stderr)
-
-    if request.method == "GET":
-        return render_template("register.html", message="")
-    elif request.method == "POST":
-        # tomar datos
-        user_fullname = request.form.get('user_fullname')
-        user_email = request.form.get('user_email')
-        user_password = request.form.get('user_password')
-
-        # Intentar meterlo a la base de datos. Corroborar si el email ya existe
-        user = db.execute("SELECT user_email FROM users WHERE (users.user_email = :user_email)",
-        {"user_email": user_email}).fetchone()
-        # si existe ya un usuario con el mismo email
-        if user:
-            # No puede registrarse
-            return render_template("register.html", message="Error al registrar usuario. Email ya existente")
-        # sino
-        else:
-            print(f"{user_fullname}, {user_email}, {user_password}", file=sys.stderr)
-            db.execute("INSERT INTO users (user_fullname, user_email, user_password) VALUES (:user_fullname, :user_email, :user_password)",
-            {"user_fullname": user_fullname, "user_email": user_email, "user_password": user_password})
-            try:
-                db.commit()
-                session['user_email'] = user_email
-                return render_template("index.html", user_email=user_email)
-            except:
-                return render_template("error.html", message="Error al registrar usuario. Error de BDD.")
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0', port=80)

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data.append('user_alias', user_alias);
         request.send(data);
 
-        // // Al recibir la response...
+        // Al recibir la response...
         request.onload = () => {
             const data = JSON.parse(request.responseText);
             // alert('Se recibe alias_ok: "' + data.alias_ok + '"');

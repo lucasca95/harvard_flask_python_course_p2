@@ -6,6 +6,8 @@ $color_4: #424242;
 $color_text_1: white;
 $color_footer: rgba(1, 0, 20, 0.329);
 
+$aliasFont: 'Sriracha', cursive;
+$messagesFont: 'Balsamiq Sans', cursive;
 
 %nice_borders{
     border-radius: 5px;
@@ -17,6 +19,42 @@ $color_footer: rgba(1, 0, 20, 0.329);
 body{
     background-color: $color_1;
     color: $color_text_1;
+
+    #login{
+        background-color: pink;
+        position: fixed;
+        top: 30%;
+        bottom: 30%;
+        left: 30%;
+        right: 30%;
+        min-width: 200px;
+        min-height: 200px;
+
+        #login_title{
+            background-color: blueviolet;
+            position: absolute;
+            top: 7%;
+            left: 10%;
+            right: 10%;
+            text-align: center;
+        }
+
+        #login_alias{
+            background-color: rgb(137, 226, 149);
+            position: absolute;
+            top: 55%;
+            left: 25%;
+            width: 50%;
+            text-align: center;
+        }
+
+        #login_start{
+            background-color: rgb(200, 207, 90);
+            position: absolute;
+            top: 75%;
+            left: 42.5%;
+        }
+    }
 
     #page{
         // background-color: blueviolet;
@@ -52,31 +90,30 @@ body{
                     left: 16%;
                     right: 16%;
                     height: 42%;
-                    padding-top: 22%;
                     border-radius: 30%;
+                }
+                #profile-img:hover{
+                    background-color: rgb(165, 165, 165);
+                    cursor: pointer;
                 }
 
                 #profile-alias{
                     // background-color: rgb(206, 0, 0);
                     position: absolute;
                     text-align: center;
-                    bottom: 20%;
+                    bottom: 25%;
                     left: 16%;
                     right: 16%;
-                    max-height: 3rem;
-                    overflow-y: scroll;
+                    font-family: $aliasFont;
+                    font-size: 150%;
                 }
-
                 #profile-exit{
-                    // background-color: rgb(62, 0, 104);
-                    // color: yellow;
                     position: absolute;
                     bottom: 10%;
-                    left: 36.5%;
-                    
+                    width: 40%;
+                    left: 30%;
                 }
             }
-        
             #rooms-area{
                 @extend %nice_borders;
                 background-color: $color_3;
@@ -85,6 +122,19 @@ body{
                 right: 5%;
                 bottom: 1%;
                 height: 42%;
+                overflow-y: scroll;
+                padding-top: 5%;
+                #rooms{
+                    list-style: '';
+                    padding-left: 20%;
+                    .room{
+                        margin-bottom: 5%;
+                    }
+                    .room:hover{
+                        cursor: pointer;
+                        font-weight: 650;
+                    }
+                }
             }
         }
 
@@ -111,7 +161,6 @@ body{
                     font-size: 150%;
                 }
             }
-
             #chat-area{
                 @extend %nice_borders;
                 background-color: $color_4;
@@ -122,6 +171,7 @@ body{
                 height: 50%;
                 padding-top: 1%;
                 overflow-y: scroll;
+                font-family: $messagesFont;
 
                 #messages{
                     padding-left: 3%;
@@ -133,7 +183,16 @@ body{
                     }
                 }
             }
-            
+            #room-area{
+                // background-color: red;
+                color: rgb(221, 221, 51);
+                position: absolute;
+                left: 20%;
+                right: 20%;
+                top: 67%;
+                text-align: center;
+                
+            }
             #message-area{
                 // background-color: $color_3;
 
@@ -164,6 +223,7 @@ body{
                     top: 5%;
                     bottom: 5%;
                     width: 16%;
+                    font-size: 150%;
                 }
                 #send:hover{
                     background-color: rgb(221, 4, 4);

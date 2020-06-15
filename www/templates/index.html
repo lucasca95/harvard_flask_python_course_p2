@@ -10,42 +10,49 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/my_css.css') }}">
 
     <!-- Handlebars -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <!-- Message template -->
-    <!-- <script id='message_template' type="text/x-handlebars-template">
-        <li>
+    <script id='message_template' type="text/x-handlebars-template">
+        <li class="message">
             {% raw -%}
-                <p>{{user_alias}}: {{message}}</p>
+                {{alias}}: {{message}}
             {%- endraw %}
         </li>
-    </script> -->
+    </script>
+    <!-- Room template -->
+    <script id='room_template' type="text/x-handlebars-template">
+        <li class="room">{% raw -%}{{ name }}{%- endraw %}</li>
+    </script>
 
     <!-- JS SocketIO -->
-    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <!-- Own JS -->
-    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/user_alias.js') }}"></script> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&family=Sriracha&display=swap" rel="stylesheet">
 
     <title>Project 2 - LucasAgustínCamino</title>
 </head>
 
 <body>
-    <div id='page'>
+    <div id='page' hidden>
         <div id='left-pannel' class="container-fluid">
             <!-- Left Pannel -->
             <div id="profile-area">
                 <!-- Profile Area -->
                 <div id="profile-img">
-                    ".png"
                 </div>
-                <p id="profile-alias">
-                    "My Alias"
-                </p>
+                <div id="profile-alias">
+                </div>
                 <button id="profile-exit">
                     EXIT
                 </button>
             </div>
             <div id="rooms-area">
-                Rooms Area
+                <!-- Rooms Area -->
+                <ul id="rooms">
+                </ul>
             </div>
         </div>
         <div id='right-pannel' class="container-fluid">
@@ -56,65 +63,26 @@
             <div id="chat-area">
                 <!-- Chat Area -->
                 <ul id="messages">
-                    <li class="message">
-                        User1: hola q onda
-                    </li>
-                    <li class="message">
-                        User3: buenas
-                    </li>
-                    <li class="message">
-                        User47: eeeeeeeeeeeeehhhhh  holaaaaaaaaaaa
-                    </li>
-                    <li class="message">
-                        User1: para emoshion
-                    </li>
-                    <li class="message">
-                        User3: ja ja
-                    </li>
-                    <li class="message">
-                        UserX: ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * 
-                        ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** *
-                         ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** *
-                          ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * 
-                          ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** 
-                          * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * 
-                    </li>
-                    <li class="message">
-                        UserX: ********************** ******* ********************
-                    </li>
-                    <li class="message">
-                        UserX: ********************** ******* ********************
-                    </li>
-                    <li class="message">
-                        UserX: ********************** ******* ********************
-                    </li>
-                    <li class="message">
-                        UserX: ********************** ******* ********************
-                    </li>
-                    <li class="message">
-                        UserX: ********************** ******* ********************
-                    </li>
-                    <li class="message">
-                        UserX: ********************** ******* ********************
-                    </li>
-                    <li class="message">
-                        UserX: ********************** ******* ********************
-                    </li>
-                    <li class="message">
-                        UserX: ********************** ******* ********************
-                    </li>
-                    <li class="message">
-                        UserX: ********************** ******* ********************
-                    </li>
-                    
                 </ul>
+            </div>
+            <div id="room-area">
+                -- You are in "<strong><span id="room"></span></strong>" room --
             </div>
             <div id="message-area">
                 <!-- Chat Area -->
-                <textarea name="new_message" id="new_message" placeholder="Type here..."></textarea>
+                <textarea autofocus name="new_message" id="new_message" placeholder="Type here..."></textarea>
                 <button id="send">Send</button>
             </div>
         </div>
+    </div>
+    <div id='login'>
+        <div id="login_title">
+            <h3>Welcome!</h3>
+            <h5>Please, choose your Alias</h5>
+        </div>
+        <!-- <input placeholder="Type your alias here" type="text" id="login_alias" value="  T*e S$t !@~`#$%^&()-+={}[]|\/<>    "> -->
+        <input placeholder="Type your alias here" type="text" id="login_alias">
+        <button id="login_start">START</button>
     </div>
     <footer>
         Lucas Agustín Camino - lucascamino95@gmail.com
