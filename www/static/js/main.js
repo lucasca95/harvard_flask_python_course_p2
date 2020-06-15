@@ -3,7 +3,7 @@
 
 // For Heroku
 // var socket = io.connect('//chatapp-0.herokuapp.com/socket.io/?EIO=4&transport=websocket'); 
-var socker = io();
+var socket = io();
 
 document.addEventListener('DOMContentLoaded', () => {
     const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
