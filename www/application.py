@@ -9,6 +9,13 @@ app = Flask(__name__,
             template_folder='templates')
             
 app.config["SECRET_KEY"] = 'My_Super?Secret_Key987'
+
+if True:
+    app.config["ENV"] = 'production'
+else:
+    app.config["ENV"] = 'development'
+    app.config["DEBUG"] = True
+
 socketio = SocketIO(app)
 
 
@@ -142,4 +149,6 @@ def delete_alias(alias):
     users.remove(alias)
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=80)
+    for k,v in app.config.items():
+        print(f'\n{k}: {v}')
+    app.run(host='0.0.0.0', port=80)
