@@ -3,3 +3,5 @@
 Web Programming with Python and JavaScript
 
 git pull && git add . && git commit -m '.' && git push && git push heroku master
+
+web: gunicorn --worker-class socketio.sgunicorn.GeventSocketIOWorker --log-file=- www.application:app
