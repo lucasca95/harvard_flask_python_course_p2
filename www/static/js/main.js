@@ -2,8 +2,7 @@
 // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port); 
 
 // For Heroku
-// var socket = io.connect('//chatapp-0.herokuapp.com/socket.io/?EIO=4&transport=websocket'); 
-var socket = io();
+var socket = io("https://chatapp-0.herokuapp.com/");
 
 document.addEventListener('DOMContentLoaded', () => {
     const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
