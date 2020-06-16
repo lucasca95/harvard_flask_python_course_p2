@@ -12,7 +12,7 @@ app = Flask(__name__)
             
 app.config["SECRET_KEY"] = 'My_Super?Secret_Key987'
 
-if False:
+if True:
     app.config["ENV"] = 'production'
 else:
     app.config["ENV"] = 'development'
@@ -22,7 +22,7 @@ socketio = SocketIO(app)
 
 
 ##############################################################
-chat_limit = 10
+chat_limit = 30
 mydebug = 0
 
 ##############################################################
@@ -34,28 +34,28 @@ users = ['pedro', 'marta']
 room_messages = [
     [
         {
-            'alias': 'random',
-            'message': 'Hola!'
+            'alias': 'Lucas',
+            'message': 'Hola! Cómo estás? Sentite libre de probar el chat con quien gustes!'
         },
         {
-            'alias': 'random',
-            'message': 'Hay alguien?'
+            'alias': 'Lucas',
+            'message': 'Seamos siempre respetuosos y evitemos usar expresiones dañinas u ofensivas. Muchas gracias!'
         }
     ],
     [
         {
-            'alias': 'martina',
-            'message': ':)'
+            'alias': 'Lucas',
+            'message': 'Este es el canal de música.'
         },
         {
-            'alias': 'javier',
-            'message': 'ola!'
+            'alias': 'Lucas',
+            'message': 'Lo agregué como segundo canal porque la música es mi hobby favorito.'
         }
     ]
 ]
 room_names = [
     'general',
-    'facultad'
+    'música'
 ]
 
     # print(f'\n\n \n', file=sys.stderr)
@@ -143,15 +143,14 @@ def alias_is_available(alias):
     return True
         
 def add_alias(alias):
-    print(f'\nAdding alias "{alias}"\n', file=sys.stderr)
+    if mydebug:
+        print(f'\nAdding alias "{alias}"\n', file=sys.stderr)
     users.append(alias)
 
 def delete_alias(alias):
-    print(f'\nDeleting alias "{alias}"\n', file=sys.stderr)
+    if mydebug:
+        print(f'\nDeleting alias "{alias}"\n', file=sys.stderr)
     users.remove(alias)
 
 if __name__ == "__main__":
-    # for k,v in app.config.items():
-    #     print(f'\n{k}: {v}')
-    # app.run(host='0.0.0.0', port=80)
     socketio.run(app, host='0.0.0.0', port=80)

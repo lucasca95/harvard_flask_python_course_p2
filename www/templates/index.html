@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"> -->
     <!-- Own CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/my_css.css') }}">
-
     <!-- Handlebars -->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/handlebars.js') }}"></script> -->
     <!-- Message template -->
     <script id='message_template' type="text/x-handlebars-template">
         <li class="message">
@@ -24,241 +20,27 @@
     <!-- Room template -->
     <script id='room_template' type="text/x-handlebars-template">
         <li class="room">{% raw -%}{{ name }}{%- endraw %}</li>
-    </script>
-    
+    </script>    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&family=Sriracha&display=swap" rel="stylesheet">
-    
     <!-- JS SocketIO -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <!-- Own JS -->
-    <script type="text/javascript" charset="utf-8">
-        // const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
-        document.addEventListener('DOMContentLoaded', () => {
-            const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
-            const room_template = Handlebars.compile(document.querySelector('#room_template').innerHTML);
+    <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/index.js') }}"></script>
 
-            var socket = io({transports: ['websocket']});
-            socket.on('connect', () => {
-                console.log('SOCKET CONNECTED');
-
-                //#region SEND ROOM
-                document.querySelector('#rooms').addEventListener('click', event => {
-                    localStorage.setItem('room', event.target.innerHTML);
-                    document.querySelector('#room').innerHTML = localStorage.getItem('room');
-
-                    const request = new XMLHttpRequest();
-                    request.open('POST', '/ajax/chats/');
-                    const data = new FormData();
-                    data.append('room', event.target.innerHTML);
-                    request.send(data);
-
-                    request.onload = () => {
-                        const data = JSON.parse(request.responseText);
-                        document.querySelector('#rooms').innerHTML = '';
-                        document.querySelector('#messages').innerHTML = '';
-
-                        data.rooms.forEach(r => {
-                            const room = room_template({
-                                'name': r
-                            });
-                            // Add room element to the list
-                            document.querySelector('#rooms').innerHTML += room;
-                        });
-                        data.messages.forEach(m => {
-                            const message = message_template({
-                                'alias': m.alias,
-                                'message': m.message
-                            });
-                            // Add message element to the chat
-                            document.querySelector('#messages').innerHTML += message;
-                            document.querySelector('#chat-area').scrollTo(0, document.querySelector('#chat-area').scrollHeight);
-                        });
-                    };
-                });
-                //#endregion
-
-                //#region SEND MESSAGE
-                document.querySelector('#send').onclick = () => {
-                    const message = document.querySelector('#new_message').value.trim();
-                    // clean new_message textarea
-                    document.querySelector('#new_message').value = '';
-                    document.querySelector('#new_message').focus();
-                    if (message === ''){
-                        return false;
-                    }
-                    // send message to server
-                    socket.emit('message_sent', {
-                        'alias': localStorage.getItem('alias'),
-                        'message': message,
-                        'room': localStorage.getItem('room')
-                    });
-                };
-                //#endregion
-            }); 
-
-            //#region VERIFIED START
-            if (localStorage.getItem('alias') !== null) {
-                document.querySelector('#profile-alias').innerHTML = localStorage.getItem('alias');
-                document.querySelector('#login').hidden = true;
-                document.querySelector('#page').hidden = false;
-            }
-
-            if (localStorage.getItem('room') === null) {
-                localStorage.setItem('room', 'general');
-            }
-            document.querySelector('#room').innerHTML = localStorage.getItem('room');
-            //#endregion
-
-            //#region MESSAGES FOR ACTUAL ROOM
-            const request = new XMLHttpRequest();
-            request.open('POST', '/ajax/chats/');
-            const data = new FormData();
-            data.append('room', localStorage.getItem('room'));
-            request.send(data);
-            request.onload = () => {
-                const data = JSON.parse(request.responseText);
-                data.rooms.forEach(r => {
-                    const room = room_template({
-                        'name': r
-                    });
-                    // Add room element to the list
-                    document.querySelector('#rooms').innerHTML += room;
-                });
-                data.messages.forEach(m => {
-                    const message = message_template({
-                        'alias': m.alias,
-                        'message': m.message
-                    });
-                    // Add message element to the chat
-                    document.querySelector('#messages').innerHTML += message;
-                    document.querySelector('#chat-area').scrollTo(0, document.querySelector('#chat-area').scrollHeight);
-                });
-            };
-            //#endregion
-            
-            
-
-            //#region SOCKET MESSAGE_RECEIVED
-            socket.on('message_received', data => {
-                if (data.room === localStorage.getItem('room')){
-                    const message = message_template({
-                        'alias': data.alias,
-                        'message': data.message
-                    });
-                    // Add message element to the chat
-                    document.querySelector('#messages').innerHTML += message;
-                    // Scroll down
-                    document.querySelector('#chat-area').scrollTo(0, document.querySelector('#chat-area').scrollHeight);
-                }
-            })
-            //#endregion
-
-            //#region PROFILE IMG
-            document.querySelector('#profile-img').onclick = () => {
-                alert('UPS! This function will be available soon!');
-            };
-            //#endregion
-
-            //#region KEYS
-            document.querySelector('#new_message').onkeydown = k_down => {
-                if ((k_down.code === 'Enter') && (k_down.shiftKey === true)) {
-                    document.querySelector('#new_message').onkeyup = k_up => {
-                        if ((k_up.code === 'Enter') && (k_up.shiftKey === true)){
-                            document.querySelector('#send').onclick();
-                        }
-                    };
-                    return false;
-                }
-                if (k_down.code === 'Enter'){
-                    document.querySelector('#new_message').onkeyup = k_up => {
-                        if (k_up.code === 'Enter'){
-                            console.log('Enter pressed');
-                            document.querySelector('#send').onclick();
-                        }
-                    };
-                    return false;
-                }
-            };
-            //#endregion
-
-            //#region LOGIN BEHAVIOUR
-            document.querySelector('#login_start').onclick = () => {
-                // Take alias value
-                const alias = formatString(document.querySelector('#login_alias').value);
-                // console.log('Alias formatted: "'+ alias +'"');
-
-                if (alias === '') {
-                    alert('User alias is invalid!.\nPlease, choose another one.\nRemember not to include strange characters: keep the alias simple!');
-                } else {
-                    // console.log(alias);
-
-                    const request = new XMLHttpRequest();
-                    request.open('POST', '/login/');
-                    const data = new FormData();
-                    data.append('alias', alias);
-                    request.send(data);
-                    request.onload = () => {
-                        const data = JSON.parse(request.responseText);
-                        if (!data.alias_ok){
-                            alert('Ups! Alias "'+alias+'" already taken!\nChoose another one, please.');
-                        } else {
-                            // console.log(alias,'has logged in');
-                            localStorage.setItem('alias', alias);
-                            document.querySelector('#profile-alias').innerHTML = alias;
-                            document.querySelector('#login').hidden = true;
-                            document.querySelector('#page').hidden = false;
-                        }
-                    };
-                }
-            };
-            //#endregion
-            
-            //#region LOGOUT BEHAVIOUR
-            document.querySelector('#profile-exit').onclick = () => {
-                const alias = localStorage.getItem('alias');
-
-                const request = new XMLHttpRequest();
-                request.open('POST', '/logout/');
-
-                request.onload = () => {
-                    localStorage.removeItem('alias');
-                    document.querySelector('#page').hidden = true;
-                    document.querySelector('#login').hidden = false;
-                    // RECARGAR LA PAGINA -- BORRAR
-                    location.reload(true);
-                };
-                    
-                const data = new FormData();
-                data.append('alias', alias);
-                request.send(data);  
-            };
-            //#endregion
-
-        });
-
-        formatString = (s) => {
-            s = s.toLowerCase().replace(/[\s$!@#~`%^&+=|(){}[<>\-\]\/\*\\]/ig, "").trim().slice(0,15);
-            return s;
-        }
-    </script>
-
-
-    <title>Project 2 - LucasAgustínCamino</title>
+    <title>ChatApp by Lucas A. Camino</title>
 </head>
 
 <body>
     <div id='page' hidden>
         <div id='left-pannel' class="container-fluid">
-            <!-- Left Pannel -->
             <div id="profile-area">
-                <!-- Profile Area -->
                 <div id="profile-img">
                 </div>
                 <div id="profile-alias">
                 </div>
                 <button id="profile-exit">
-                    EXIT
+                    SALIR
                 </button>
             </div>
             <div id="rooms-area">
@@ -268,45 +50,37 @@
             </div>
         </div>
         <div id='right-pannel' class="container-fluid">
-            <!-- Right Pannel -->
             <div id="title-area">
-                <h1 id="title">Welcome to "ChatApp" !</h1>
+                <h1 id="title">Bienvenid@ a "ChatApp"!</h1>
             </div>
             <div id="chat-area">
-                <!-- Chat Area -->
                 <ul id="messages">
                 </ul>
             </div>
             <div id="room-area">
-                -- You are in "<strong><span id="room"></span></strong>" room --
+                -- Estás en sala "<strong><span id="room"></span></strong>" --
             </div>
             <div id="message-area">
-                <!-- Chat Area -->
-                <textarea autofocus name="new_message" id="new_message" placeholder="Type here..."></textarea>
-                <button id="send">Send</button>
+                <textarea autofocus name="new_message" id="new_message" placeholder="Escribe aquí..."></textarea>
+                <button id="send">Enviar</button>
             </div>
         </div>
     </div>
     <div id='login'>
         <div id="login_title">
-            <h3>Welcome!</h3>
-            <h5>Please, choose your Alias</h5>
+            <h3>Hola!</h3>
+            <h5>Por favor, elige un Alias</h5>
         </div>
         <!-- <input placeholder="Type your alias here" type="text" id="login_alias" value="  T*e S$t !@~`#$%^&()-+={}[]|\/<>    "> -->
-        <input placeholder="Type your alias here" type="text" id="login_alias">
-        <button id="login_start">START</button>
+        <input placeholder="Escribe tu alias aquí" type="text" id="login_alias">
+        <button id="login_start">INICIAR</button>
     </div>
     <footer>
-        Lucas Agustín Camino - lucascamino95@gmail.com
+        <a href="https://github.com/lucasca95" target="_blank">Lucas Agustín Camino</a> - lucascamino95@gmail.com
     </footer>
 
     <!-- JS Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-    <!-- JS Bootstrap local-->
-    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
 </body>

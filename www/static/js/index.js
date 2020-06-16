@@ -1,53 +1,12 @@
-
-const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
-var socket = io.connect(url_socket);
-
+// const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
 document.addEventListener('DOMContentLoaded', () => {
-    console.log(url_socket+'.');
     const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
     const room_template = Handlebars.compile(document.querySelector('#room_template').innerHTML);
 
-    //#region VERIFIED START
-    if (localStorage.getItem('alias') !== null) {
-        document.querySelector('#profile-alias').innerHTML = localStorage.getItem('alias');
-        document.querySelector('#login').hidden = true;
-        document.querySelector('#page').hidden = false;
-    }
-
-    if (localStorage.getItem('room') === null) {
-        localStorage.setItem('room', 'general');
-    }
-    document.querySelector('#room').innerHTML = localStorage.getItem('room');
-    //#endregion
-
-    //#region MESSAGES FOR ACTUAL ROOM
-    const request = new XMLHttpRequest();
-    request.open('POST', '/ajax/chats/');
-    const data = new FormData();
-    data.append('room', localStorage.getItem('room'));
-    request.send(data);
-    request.onload = () => {
-        const data = JSON.parse(request.responseText);
-        data.rooms.forEach(r => {
-            const room = room_template({
-                'name': r
-            });
-            // Add room element to the list
-            document.querySelector('#rooms').innerHTML += room;
-        });
-        data.messages.forEach(m => {
-            const message = message_template({
-                'alias': m.alias,
-                'message': m.message
-            });
-            // Add message element to the chat
-            document.querySelector('#messages').innerHTML += message;
-            document.querySelector('#chat-area').scrollTo(0, document.querySelector('#chat-area').scrollHeight);
-        });
-    };
-    //#endregion
-
+    var socket = io({transports: ['websocket']});
     socket.on('connect', () => {
+        console.log('SOCKET CONNECTED');
+
         //#region SEND ROOM
         document.querySelector('#rooms').addEventListener('click', event => {
             localStorage.setItem('room', event.target.innerHTML);
@@ -103,6 +62,48 @@ document.addEventListener('DOMContentLoaded', () => {
         //#endregion
     }); 
 
+    //#region VERIFIED START
+    if (localStorage.getItem('alias') !== null) {
+        document.querySelector('#profile-alias').innerHTML = localStorage.getItem('alias');
+        document.querySelector('#login').hidden = true;
+        document.querySelector('#page').hidden = false;
+    }
+
+    if (localStorage.getItem('room') === null) {
+        localStorage.setItem('room', 'general');
+    }
+    document.querySelector('#room').innerHTML = localStorage.getItem('room');
+    //#endregion
+
+    //#region MESSAGES FOR ACTUAL ROOM
+    const request = new XMLHttpRequest();
+    request.open('POST', '/ajax/chats/');
+    const data = new FormData();
+    data.append('room', localStorage.getItem('room'));
+    request.send(data);
+    request.onload = () => {
+        const data = JSON.parse(request.responseText);
+        data.rooms.forEach(r => {
+            const room = room_template({
+                'name': r
+            });
+            // Add room element to the list
+            document.querySelector('#rooms').innerHTML += room;
+        });
+        data.messages.forEach(m => {
+            const message = message_template({
+                'alias': m.alias,
+                'message': m.message
+            });
+            // Add message element to the chat
+            document.querySelector('#messages').innerHTML += message;
+            document.querySelector('#chat-area').scrollTo(0, document.querySelector('#chat-area').scrollHeight);
+        });
+    };
+    //#endregion
+    
+    
+
     //#region SOCKET MESSAGE_RECEIVED
     socket.on('message_received', data => {
         if (data.room === localStorage.getItem('room')){
@@ -137,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (k_down.code === 'Enter'){
             document.querySelector('#new_message').onkeyup = k_up => {
                 if (k_up.code === 'Enter'){
+                    console.log('Enter pressed');
                     document.querySelector('#send').onclick();
                 }
             };
