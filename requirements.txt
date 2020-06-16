@@ -2,6 +2,6 @@ Flask
 Flask-SocketIO
 # Para hacer deploy en heroku
 gunicorn
-gevent
-gevent-websocket
+# gevent
+# gevent-websocket
 #
