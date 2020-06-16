@@ -1,6 +1,6 @@
 # Para hacer deploy en heroku
 gunicorn
-# eventlet
+eventlet
 #
 Flask
 Flask-SocketIO
