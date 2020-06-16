@@ -1,10 +1,9 @@
-// For localhost
-// var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port); 
 
-// For Heroku
-var socket = io("https://chatapp-0.herokuapp.com/");
+const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
+var socket = io.connect(url_socket); 
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log(url_socket+'.');
     const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
     const room_template = Handlebars.compile(document.querySelector('#room_template').innerHTML);
 
@@ -189,6 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('alias');
             document.querySelector('#page').hidden = true;
             document.querySelector('#login').hidden = false;
+            // RECARGAR LA PAGINA -- BORRAR
+            location.reload(true);
         };
             
         const data = new FormData();
