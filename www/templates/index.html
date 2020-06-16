@@ -86,7 +86,7 @@
 
             socket.on('connect', () => {
                 console.log('SOCKET CONNECTED');
-                
+
                 //#region SEND ROOM
                 document.querySelector('#rooms').addEventListener('click', event => {
                     localStorage.setItem('room', event.target.innerHTML);
@@ -176,6 +176,7 @@
                 if (k_down.code === 'Enter'){
                     document.querySelector('#new_message').onkeyup = k_up => {
                         if (k_up.code === 'Enter'){
+                            console.log('Enter pressed');
                             document.querySelector('#send').onclick();
                         }
                     };
