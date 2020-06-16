@@ -1,5 +1,6 @@
-Flask
-Flask-SocketIO
 # Para hacer deploy en heroku
 gunicorn
 eventlet
+#
+Flask
+Flask-SocketIO

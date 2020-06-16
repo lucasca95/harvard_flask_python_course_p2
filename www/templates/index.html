@@ -25,65 +25,20 @@
     <script id='room_template' type="text/x-handlebars-template">
         <li class="room">{% raw -%}{{ name }}{%- endraw %}</li>
     </script>
-
-    <!-- JS SocketIO -->
-    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script> -->
-    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/socket.io.js') }}"></script> -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&family=Sriracha&display=swap" rel="stylesheet">
     
+    <!-- JS SocketIO -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <!-- Own JS -->
-    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script> -->
-    <script>
-        const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
-        var socket = io.connect('ws://localhost:80', {transports: ['websocket']});
-
+    <script type="text/javascript" charset="utf-8">
+        // const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
         document.addEventListener('DOMContentLoaded', () => {
             const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
             const room_template = Handlebars.compile(document.querySelector('#room_template').innerHTML);
 
-            //#region VERIFIED START
-            if (localStorage.getItem('alias') !== null) {
-                document.querySelector('#profile-alias').innerHTML = localStorage.getItem('alias');
-                document.querySelector('#login').hidden = true;
-                document.querySelector('#page').hidden = false;
-            }
-
-            if (localStorage.getItem('room') === null) {
-                localStorage.setItem('room', 'general');
-            }
-            document.querySelector('#room').innerHTML = localStorage.getItem('room');
-            //#endregion
-
-            //#region MESSAGES FOR ACTUAL ROOM
-            const request = new XMLHttpRequest();
-            request.open('POST', '/ajax/chats/');
-            const data = new FormData();
-            data.append('room', localStorage.getItem('room'));
-            request.send(data);
-            request.onload = () => {
-                const data = JSON.parse(request.responseText);
-                data.rooms.forEach(r => {
-                    const room = room_template({
-                        'name': r
-                    });
-                    // Add room element to the list
-                    document.querySelector('#rooms').innerHTML += room;
-                });
-                data.messages.forEach(m => {
-                    const message = message_template({
-                        'alias': m.alias,
-                        'message': m.message
-                    });
-                    // Add message element to the chat
-                    document.querySelector('#messages').innerHTML += message;
-                    document.querySelector('#chat-area').scrollTo(0, document.querySelector('#chat-area').scrollHeight);
-                });
-            };
-            //#endregion
-
+            var socket = io();
             socket.on('connect', () => {
                 console.log('SOCKET CONNECTED');
 
@@ -141,6 +96,48 @@
                 };
                 //#endregion
             }); 
+
+            //#region VERIFIED START
+            if (localStorage.getItem('alias') !== null) {
+                document.querySelector('#profile-alias').innerHTML = localStorage.getItem('alias');
+                document.querySelector('#login').hidden = true;
+                document.querySelector('#page').hidden = false;
+            }
+
+            if (localStorage.getItem('room') === null) {
+                localStorage.setItem('room', 'general');
+            }
+            document.querySelector('#room').innerHTML = localStorage.getItem('room');
+            //#endregion
+
+            //#region MESSAGES FOR ACTUAL ROOM
+            const request = new XMLHttpRequest();
+            request.open('POST', '/ajax/chats/');
+            const data = new FormData();
+            data.append('room', localStorage.getItem('room'));
+            request.send(data);
+            request.onload = () => {
+                const data = JSON.parse(request.responseText);
+                data.rooms.forEach(r => {
+                    const room = room_template({
+                        'name': r
+                    });
+                    // Add room element to the list
+                    document.querySelector('#rooms').innerHTML += room;
+                });
+                data.messages.forEach(m => {
+                    const message = message_template({
+                        'alias': m.alias,
+                        'message': m.message
+                    });
+                    // Add message element to the chat
+                    document.querySelector('#messages').innerHTML += message;
+                    document.querySelector('#chat-area').scrollTo(0, document.querySelector('#chat-area').scrollHeight);
+                });
+            };
+            //#endregion
+            
+            
 
             //#region SOCKET MESSAGE_RECEIVED
             socket.on('message_received', data => {
