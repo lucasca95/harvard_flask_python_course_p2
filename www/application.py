@@ -10,7 +10,7 @@ app = Flask(__name__,
             
 app.config["SECRET_KEY"] = 'My_Super?Secret_Key987'
 
-if True:
+if False:
     app.config["ENV"] = 'production'
 else:
     app.config["ENV"] = 'development'
