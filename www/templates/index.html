@@ -38,10 +38,9 @@
     <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script> -->
     <script>
         const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
-        var socket = io.connect(url_socket);
+        var socket = io.connect('ws://localhost:80', {transports: ['websocket']});
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log(url_socket+'.');
             const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
             const room_template = Handlebars.compile(document.querySelector('#room_template').innerHTML);
 
@@ -86,6 +85,8 @@
             //#endregion
 
             socket.on('connect', () => {
+                console.log('SOCKET CONNECTED');
+                
                 //#region SEND ROOM
                 document.querySelector('#rooms').addEventListener('click', event => {
                     localStorage.setItem('room', event.target.innerHTML);
