@@ -1,6 +1,6 @@
 
 const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
-var socket = io.connect(url_socket); 
+var socket = io.connect(url_socket);
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log(url_socket+'.');

@@ -153,4 +153,5 @@ def delete_alias(alias):
 if __name__ == "__main__":
     for k,v in app.config.items():
         print(f'\n{k}: {v}')
-    app.run(host='0.0.0.0', port=80)
+    # app.run(host='0.0.0.0', port=80)
+    socketio.run(app)
