@@ -22,8 +22,8 @@ socketio = SocketIO(app)
 
 
 ##############################################################
-chat_limit = 20
-mydebug = 1
+chat_limit = 10
+mydebug = 0
 
 ##############################################################
 # Users
@@ -123,9 +123,9 @@ def message_sent(data):
     if (len(room_messages[room_names.index(aux_room)]) > chat_limit):
         room_messages[room_names.index(aux_room)] = room_messages[room_names.index(aux_room)][1:chat_limit+1] 
 
-    if (not mydebug):
+    if (mydebug):
         print(f'\n\nCantMessages: {len(room_messages[room_names.index(aux_room)])}\n{room_messages[room_names.index(aux_room)]}\n', file=sys.stderr)
-    if (not mydebug):
+    if (mydebug):
         print(f'\n\n Ahora la sala {aux_room} tiene:\n', file=sys.stderr)
         for m in room_messages[0]:
             for k,v in m.items():
@@ -151,7 +151,7 @@ def delete_alias(alias):
     users.remove(alias)
 
 if __name__ == "__main__":
-    for k,v in app.config.items():
-        print(f'\n{k}: {v}')
+    # for k,v in app.config.items():
+    #     print(f'\n{k}: {v}')
     # app.run(host='0.0.0.0', port=80)
-    socketio.run(app)
+    socketio.run(app, host='0.0.0.0', port=80)
