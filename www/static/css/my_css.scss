@@ -1,10 +1,16 @@
-$color_1: #101010;
+// $color_1: #101010;
+// $color_2: #212121;
+// $color_3: #303030;
+// $color_4: #424242;
+
+$color_1: rgb(248,247,229);
 $color_2: #212121;
 $color_3: #303030;
 $color_4: #424242;
 
 $color_text_1: white;
-$color_footer: rgba(1, 0, 20, 0.329);
+// $color_footer: rgba(1, 0, 20, 0.329);
+$color_footer: rgba(139, 113, 209, 0.74);
 
 $aliasFont: 'Sriracha', cursive;
 $messagesFont: 'Balsamiq Sans', cursive;
@@ -83,14 +89,16 @@ body{
 
                 #profile-img{
                     @extend %nice_borders;
-                    background-color: $color_3;
+                    border-radius: 20px;
+                    border-color: rgb(71, 90, 117);
+                    // border-radius: 30%;
+                    background-color: $color_1;
                     position: absolute;
                     text-align: center;
                     top: 16%;
                     left: 16%;
                     right: 16%;
                     height: 42%;
-                    border-radius: 30%;
                 }
                 #profile-img:hover{
                     background-color: rgb(165, 165, 165);
@@ -99,6 +107,7 @@ body{
 
                 #profile-alias{
                     // background-color: rgb(206, 0, 0);
+                    color: rgb(73, 11, 167);
                     position: absolute;
                     text-align: center;
                     bottom: 25%;
@@ -108,6 +117,10 @@ body{
                     font-size: 150%;
                 }
                 #profile-exit{
+                    background-color: rgb(254, 202, 116);
+                    color: rgb(90, 113, 147);
+                    border-color: rgb(71, 90, 117);
+                    border-radius: 10px;
                     position: absolute;
                     bottom: 10%;
                     width: 40%;
@@ -116,7 +129,9 @@ body{
             }
             #rooms-area{
                 @extend %nice_borders;
-                background-color: $color_3;
+                border-color: rgb(71, 90, 117);
+                background-color: rgb(90, 113, 147);
+                color: whitesmoke;
                 position: absolute;
                 left: 5%;
                 right: 5%;
@@ -147,7 +162,10 @@ body{
             width: 72%;
 
             #title-area{
-                // background-color: rgb(17, 134, 79);
+                background-color: rgb(71, 197, 193); 
+                // color: rgb(90, 113, 147);
+                color: rgb(232, 248, 247);
+                border-radius: 10px;
                 position: absolute;
                 left: 25%;
                 right: 25%;
@@ -163,7 +181,10 @@ body{
             }
             #chat-area{
                 @extend %nice_borders;
-                background-color: $color_4;
+                border-color: rgb(71, 90, 117);
+                border-width: 5px;
+                background-color: rgb(90, 113, 147);
+                color: whitesmoke;
                 position: absolute;
                 left: 5%;
                 right: 5%;
@@ -184,18 +205,17 @@ body{
                 }
             }
             #room-area{
-                // background-color: red;
-                color: rgb(221, 221, 51);
+                background-color: rgb(254, 202, 116);
+                color: rgb(90, 113, 147);
+                border-radius: 10px;
                 position: absolute;
-                left: 20%;
-                right: 20%;
+                left: 30%;
+                right: 30%;
                 top: 67%;
                 text-align: center;
                 
             }
             #message-area{
-                // background-color: $color_3;
-
                 position: absolute;
                 left: 5%;
                 right: 5%;
@@ -204,8 +224,9 @@ body{
 
                 #new_message{
                     @extend %nice_borders;
-                    background-color: rgb(206, 206, 206);
-                    color: black;
+                    border-color: rgb(71, 90, 117);
+                    background-color: rgb(186, 247, 240);
+                    color: rgb(90, 113, 147);
                     resize: none;
                     position: absolute;
                     top: 5%;
@@ -216,7 +237,8 @@ body{
                 }
                 #send{
                     @extend %nice_borders;
-                    background-color: rgb(131, 1, 1);
+                    // background-color: rgb(81, 237, 198);
+                    background-color: rgb(48, 235, 188);
                     position: absolute;
                     color: white;
                     right: 1%;
@@ -226,7 +248,7 @@ body{
                     font-size: 150%;
                 }
                 #send:hover{
-                    background-color: rgb(221, 4, 4);
+                    background-color: rgb(116, 236, 206);
                     font-size: 200%;
                 }
             }
@@ -243,4 +265,12 @@ footer{
     height: 4.5%;
     text-align: center;
     font-size: 100%;
+
+    a{
+        color: rgb(73, 11, 167);
+        color: rgb(67, 0, 167);
+    }
+    a:hover{
+        color: rgb(228, 225, 64);
+    }
 }

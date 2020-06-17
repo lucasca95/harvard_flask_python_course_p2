@@ -5,7 +5,7 @@ body #page #left-pannel #profile-area #profile-img, body #page #left-pannel #roo
   border-color: whitesmoke; }
 
 body {
-  background-color: #101010;
+  background-color: #f8f7e5;
   color: white; }
   body #login {
     background-color: pink;
@@ -55,18 +55,20 @@ body {
         top: 1%;
         height: 53%; }
         body #page #left-pannel #profile-area #profile-img {
-          background-color: #303030;
+          border-radius: 20px;
+          border-color: #475a75;
+          background-color: #f8f7e5;
           position: absolute;
           text-align: center;
           top: 16%;
           left: 16%;
           right: 16%;
-          height: 42%;
-          border-radius: 30%; }
+          height: 42%; }
         body #page #left-pannel #profile-area #profile-img:hover {
           background-color: #a5a5a5;
           cursor: pointer; }
         body #page #left-pannel #profile-area #profile-alias {
+          color: #490ba7;
           position: absolute;
           text-align: center;
           bottom: 25%;
@@ -75,12 +77,18 @@ body {
           font-family: "Sriracha", cursive;
           font-size: 150%; }
         body #page #left-pannel #profile-area #profile-exit {
+          background-color: #feca74;
+          color: #5a7193;
+          border-color: #475a75;
+          border-radius: 10px;
           position: absolute;
           bottom: 10%;
           width: 40%;
           left: 30%; }
       body #page #left-pannel #rooms-area {
-        background-color: #303030;
+        border-color: #475a75;
+        background-color: #5a7193;
+        color: whitesmoke;
         position: absolute;
         left: 5%;
         right: 5%;
@@ -103,6 +111,9 @@ body {
       bottom: 4%;
       width: 72%; }
       body #page #right-pannel #title-area {
+        background-color: #47c5c1;
+        color: #e8f8f7;
+        border-radius: 10px;
         position: absolute;
         left: 25%;
         right: 25%;
@@ -114,7 +125,10 @@ body {
         body #page #right-pannel #title-area #title {
           font-size: 150%; }
       body #page #right-pannel #chat-area {
-        background-color: #424242;
+        border-color: #475a75;
+        border-width: 5px;
+        background-color: #5a7193;
+        color: whitesmoke;
         position: absolute;
         left: 5%;
         right: 5%;
@@ -131,10 +145,12 @@ body {
             padding-bottom: 1%;
             max-width: 150%; }
       body #page #right-pannel #room-area {
-        color: #dddd33;
+        background-color: #feca74;
+        color: #5a7193;
+        border-radius: 10px;
         position: absolute;
-        left: 20%;
-        right: 20%;
+        left: 30%;
+        right: 30%;
         top: 67%;
         text-align: center; }
       body #page #right-pannel #message-area {
@@ -144,8 +160,9 @@ body {
         bottom: 5%;
         height: 22%; }
         body #page #right-pannel #message-area #new_message {
-          background-color: #cecece;
-          color: black;
+          border-color: #475a75;
+          background-color: #baf7f0;
+          color: #5a7193;
           resize: none;
           position: absolute;
           top: 5%;
@@ -154,7 +171,7 @@ body {
           height: 90%;
           padding: 1.5%; }
         body #page #right-pannel #message-area #send {
-          background-color: #830101;
+          background-color: #30ebbc;
           position: absolute;
           color: white;
           right: 1%;
@@ -163,11 +180,11 @@ body {
           width: 16%;
           font-size: 150%; }
         body #page #right-pannel #message-area #send:hover {
-          background-color: #dd0404;
+          background-color: #74ecce;
           font-size: 200%; }
 
 footer {
-  background-color: rgba(1, 0, 20, 0.329);
+  background-color: rgba(139, 113, 209, 0.74);
   position: fixed;
   overflow-y: scroll;
   bottom: 0;
@@ -175,5 +192,10 @@ footer {
   height: 4.5%;
   text-align: center;
   font-size: 100%; }
+  footer a {
+    color: #490ba7;
+    color: #4300a7; }
+  footer a:hover {
+    color: #e4e140; }
 
 /*# sourceMappingURL=my_css.css.map */
