@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var socket = io({transports: ['websocket']});
     
+
     socket.on('connect', () => {
         console.log('SOCKET CONNECTED');
 
@@ -61,6 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
         //#endregion
+
+        //#region CREATE ROOM #room_title_yes
+        document.querySelector('#room_title_yes').onclick = () => {        
+            const room_name = formatString(document.querySelector('#room_title').value);
+
+            if (room_name === '') {
+                alert('Room name is invalid!.\nPlease, choose another one.\nRemember not to include strange characters: keep it simple!');
+            } else {
+                socket.emit('room_sent', {
+                    'room_name': room_name
+                });
+            }
+        };
+        //#endregion
     }); 
 
     //#region VERIFIED START
@@ -74,6 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('room', 'general');
     }
     document.querySelector('#room').innerHTML = localStorage.getItem('room');
+
+    document.querySelector('#room_title').value = '';
     //#endregion
 
     //#region MESSAGES FOR ACTUAL ROOM
@@ -102,8 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     //#endregion
-    
-    
 
     //#region SOCKET MESSAGE_RECEIVED
     socket.on('message_received', data => {
@@ -116,6 +131,26 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#messages').innerHTML += message;
             // Scroll down
             document.querySelector('#chat-area').scrollTo(0, document.querySelector('#chat-area').scrollHeight);
+        }
+    })
+    //#endregion
+
+    //#region SOCKET ROOM_RECEIVED
+    socket.on('room_received', data => {
+        if (!data.status) {
+            alert('Ups! Room name "'+data.room_name+'" already exists!\nChoose another one, please.');
+        } else {
+            localStorage.setItem('room', data.room_name);
+            document.querySelector('#btn-add-room').hidden = false;
+            document.querySelector('#menu_new_room').hidden = true;
+            document.querySelector('#room_title').value = '';
+
+            const room = room_template({
+                'name': data.room_name
+            });
+
+            // Add room element to the room list
+            document.querySelector('#rooms').innerHTML += room;
         }
     })
     //#endregion
@@ -191,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('alias');
             document.querySelector('#page').hidden = true;
             document.querySelector('#login').hidden = false;
+            document.querySelector('#menu_new_room').hidden = true;
             // RECARGAR LA PAGINA -- BORRAR
             location.reload(true);
         };
@@ -201,10 +237,24 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     //#endregion
 
+    //#region CREATE ROOM #btn-add-room
+    document.querySelector('#btn-add-room').onclick = () => {
+        document.querySelector('#menu_new_room').hidden = false;
+        document.querySelector('#btn-add-room').hidden = true;
+    };
+    //#endregion
+
+    //#region CREATE ROOM #room_title_no
+    document.querySelector('#room_title_no').onclick = () => {
+        document.querySelector('#menu_new_room').hidden = true;
+        document.querySelector('#btn-add-room').hidden = false;
+        document.querySelector('#room_title').value = '';
+    };
+    //#endregion
 });
 
 formatString = (s) => {
-    s = s.toLowerCase().replace(/[\s$!@#~`%^&+=|(){}[<>\-\]\/\*\\]/ig, "").trim().slice(0,15);
+    s = s.toLowerCase().replace(/[\s$!@#~`%^&+="|(){}[<>\-\]\/\*\\]/ig, "").trim().slice(0,15);
     return s;
 }
 // window.alert = function(message){

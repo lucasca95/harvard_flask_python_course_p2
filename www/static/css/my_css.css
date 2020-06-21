@@ -7,34 +7,6 @@ body #page #left-pannel #profile-area #profile-img, body #page #left-pannel #roo
 body {
   background-color: #f8f7e5;
   color: white; }
-  body #login {
-    background-color: pink;
-    position: fixed;
-    top: 30%;
-    bottom: 30%;
-    left: 30%;
-    right: 30%;
-    min-width: 200px;
-    min-height: 200px; }
-    body #login #login_title {
-      background-color: blueviolet;
-      position: absolute;
-      top: 7%;
-      left: 10%;
-      right: 10%;
-      text-align: center; }
-    body #login #login_alias {
-      background-color: #89e295;
-      position: absolute;
-      top: 55%;
-      left: 25%;
-      width: 50%;
-      text-align: center; }
-    body #login #login_start {
-      background-color: #c8cf5a;
-      position: absolute;
-      top: 75%;
-      left: 42.5%; }
   body #page {
     position: fixed;
     height: 100%;
@@ -96,12 +68,12 @@ body {
         height: 42%;
         overflow-y: scroll;
         padding-top: 5%; }
-        body #page #left-pannel #rooms-area #new-room-area {
+        body #page #left-pannel #rooms-area #add-room-area {
           position: fixed;
           bottom: 38%;
           left: 20%;
           text-align: right; }
-          body #page #left-pannel #rooms-area #new-room-area #new-room {
+          body #page #left-pannel #rooms-area #add-room-area #btn-add-room {
             background-color: #feca74;
             color: #5a7193;
             border-color: #475a75;
@@ -193,6 +165,67 @@ body {
         body #page #right-pannel #message-area #send:hover {
           background-color: #74ecce;
           font-size: 200%; }
+  body #login {
+    background-color: pink;
+    position: fixed;
+    top: 30%;
+    bottom: 30%;
+    left: 30%;
+    right: 30%;
+    min-width: 200px;
+    min-height: 200px; }
+    body #login #login_title {
+      background-color: blueviolet;
+      position: absolute;
+      top: 7%;
+      left: 10%;
+      right: 10%;
+      text-align: center; }
+    body #login #login_alias {
+      background-color: #89e295;
+      position: absolute;
+      top: 55%;
+      left: 25%;
+      width: 50%;
+      text-align: center; }
+    body #login #login_start {
+      background-color: #c8cf5a;
+      position: absolute;
+      top: 75%;
+      left: 42.5%; }
+  body #menu_new_room {
+    background-color: blue;
+    position: fixed;
+    top: 30%;
+    bottom: 30%;
+    left: 30%;
+    right: 30%;
+    min-width: 200px;
+    min-height: 200px; }
+    body #menu_new_room #menu_new_room_title {
+      background-color: blueviolet;
+      position: absolute;
+      top: 7%;
+      left: 10%;
+      right: 10%;
+      text-align: center; }
+    body #menu_new_room #room_title {
+      background-color: #89e295;
+      position: absolute;
+      top: 55%;
+      left: 25%;
+      width: 50%;
+      text-align: center; }
+    body #menu_new_room #room_title_yes {
+      background-color: #c8cf5a;
+      position: absolute;
+      top: 75%;
+      left: 12%; }
+    body #menu_new_room #room_title_no {
+      background-color: #c8cf5a;
+      position: absolute;
+      top: 75%;
+      right: 12%; }
 
 footer {
   background-color: rgba(139, 113, 209, 0.74);

@@ -26,42 +26,6 @@ body{
     background-color: $color_1;
     color: $color_text_1;
 
-    #login{
-        background-color: pink;
-        position: fixed;
-        top: 30%;
-        bottom: 30%;
-        left: 30%;
-        right: 30%;
-        min-width: 200px;
-        min-height: 200px;
-
-        #login_title{
-            background-color: blueviolet;
-            position: absolute;
-            top: 7%;
-            left: 10%;
-            right: 10%;
-            text-align: center;
-        }
-
-        #login_alias{
-            background-color: rgb(137, 226, 149);
-            position: absolute;
-            top: 55%;
-            left: 25%;
-            width: 50%;
-            text-align: center;
-        }
-
-        #login_start{
-            background-color: rgb(200, 207, 90);
-            position: absolute;
-            top: 75%;
-            left: 42.5%;
-        }
-    }
-
     #page{
         // background-color: blueviolet;
         position: fixed;
@@ -140,13 +104,13 @@ body{
                 overflow-y: scroll;
                 padding-top: 5%;
 
-                #new-room-area{
+                #add-room-area{
                     position: fixed;
                     bottom: 38%;
                     left: 20%;
                     text-align: right;
                     
-                    #new-room{
+                    #btn-add-room{
                         background-color: rgb(254, 202, 116);
                         color: rgb(90, 113, 147);
                         border-color: rgb(71, 90, 117);
@@ -268,6 +232,85 @@ body{
                     font-size: 200%;
                 }
             }
+        }
+    }
+
+    #login{
+        background-color: pink;
+        position: fixed;
+        top: 30%;
+        bottom: 30%;
+        left: 30%;
+        right: 30%;
+        min-width: 200px;
+        min-height: 200px;
+
+        #login_title{
+            background-color: blueviolet;
+            position: absolute;
+            top: 7%;
+            left: 10%;
+            right: 10%;
+            text-align: center;
+        }
+
+        #login_alias{
+            background-color: rgb(137, 226, 149);
+            position: absolute;
+            top: 55%;
+            left: 25%;
+            width: 50%;
+            text-align: center;
+        }
+
+        #login_start{
+            background-color: rgb(200, 207, 90);
+            position: absolute;
+            top: 75%;
+            left: 42.5%;
+        }
+    }
+
+    #menu_new_room{
+        background-color: blue;
+        position: fixed;
+        top: 30%;
+        bottom: 30%;
+        left: 30%;
+        right: 30%;
+        min-width: 200px;
+        min-height: 200px;
+
+        #menu_new_room_title{
+            background-color: blueviolet;
+            position: absolute;
+            top: 7%;
+            left: 10%;
+            right: 10%;
+            text-align: center;
+        }
+
+        #room_title{
+            background-color: rgb(137, 226, 149);
+            position: absolute;
+            top: 55%;
+            left: 25%;
+            width: 50%;
+            text-align: center;
+        }
+
+        #room_title_yes{
+            background-color: rgb(200, 207, 90);
+            position: absolute;
+            top: 75%;
+            left: 12%;
+        }
+
+        #room_title_no{
+            background-color: rgb(200, 207, 90);
+            position: absolute;
+            top: 75%;
+            right: 12%;
         }
     }
 }
