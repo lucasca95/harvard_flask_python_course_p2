@@ -1,10 +1,10 @@
-const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
+// const url_socket = location.protocol + '//' + document.domain + ':' + location.port;
 document.addEventListener('DOMContentLoaded', () => {
     const message_template = Handlebars.compile(document.querySelector('#message_template').innerHTML);
     const room_template = Handlebars.compile(document.querySelector('#room_template').innerHTML);
 
     var socket = io();
-    
+
     socket.on('connect', () => {
         console.log('SOCKET CONNECTED');
 
@@ -61,6 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
         //#endregion
+    
+        //#region CREATE ROOM
+        document.querySelector('#new-room').onclick = () => {
+            console.log('ME tocaste');
+        };
+        //#endregion
     }); 
 
     //#region VERIFIED START
@@ -103,8 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     //#endregion
     
-    
-
     //#region SOCKET MESSAGE_RECEIVED
     socket.on('message_received', data => {
         if (data.room === localStorage.getItem('room')){

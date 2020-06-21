@@ -139,6 +139,22 @@ body{
                 height: 42%;
                 overflow-y: scroll;
                 padding-top: 5%;
+
+                #new-room-area{
+                    position: fixed;
+                    bottom: 38%;
+                    left: 20%;
+                    text-align: right;
+                    
+                    #new-room{
+                        background-color: rgb(254, 202, 116);
+                        color: rgb(90, 113, 147);
+                        border-color: rgb(71, 90, 117);
+                        border-radius: 10px;
+                        font-size: 140%;
+                    }
+                }
+
                 #rooms{
                     list-style: '';
                     padding-left: 20%;

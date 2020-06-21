@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const room_template = Handlebars.compile(document.querySelector('#room_template').innerHTML);
 
     var socket = io({transports: ['websocket']});
+    
     socket.on('connect', () => {
         console.log('SOCKET CONNECTED');
 
