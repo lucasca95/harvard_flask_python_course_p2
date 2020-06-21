@@ -26,7 +26,10 @@
     <!-- JS SocketIO -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <!-- Own JS -->
-    <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/index.js') }}"></script>
+        <!-- On Linux / Docker -->
+        <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/index_linux.js') }}"></script>
+        <!-- On windows / Heroku -->
+        <!-- <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/index.js') }}"></script> -->
 
     <title>ChatApp by Lucas A. Camino</title>
 </head>
@@ -66,6 +69,7 @@
             </div>
         </div>
     </div>
+
     <div id='login'>
         <div id="login_title">
             <h3>Hola!</h3>
@@ -75,6 +79,7 @@
         <input placeholder="Escribe tu alias aquí" type="text" id="login_alias">
         <button id="login_start">INICIAR</button>
     </div>
+    
     <footer>
         <strong><a href="https://github.com/lucasca95" target="_blank">Lucas Agustín Camino</a></strong> - lucascamino95@gmail.com
     </footer>
